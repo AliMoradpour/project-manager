@@ -39,8 +39,9 @@ export class ProjectsService {
     return await query.getMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(id: number) {
+    const projectById = await this.projectRepository.findOneBy({ id });
+    return projectById
   }
 
   update(id: number, updateProjectDto: UpdateProjectDto) {
