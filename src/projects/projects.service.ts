@@ -50,8 +50,20 @@ export class ProjectsService {
     return projectById;
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
+  async update(id: number, updateProjectDto: UpdateProjectDto) {
+    const foundProject = this.projectRepository.findOneBy({ id });
+    if (!foundProject)
+      throw new NotFoundException(`Project with id ${id} Not Founded!`);
+
+    try {
+      const updatedProject = await this.projectRepository.update(
+        { id },
+        updateProjectDto,
+      );
+      return updatedProject;
+    } catch (error) {
+      throw new BadRequestException('Update Failed');
+    }
   }
 
   remove(id: number) {
