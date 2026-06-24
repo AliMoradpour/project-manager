@@ -10,8 +10,8 @@ export class Task {
   @Column()
   title!: string;
 
-  @Column()
-  description!: string;
+  @Column({ nullable: true })
+  description?: string;
 
   @Column({
     type: 'enum',
@@ -20,6 +20,6 @@ export class Task {
   })
   status?: TaskStatusEnum;
 
-  @ManyToOne(()=> Project, (project)=> project.tasks)
-  project!: Project
+  @ManyToOne(() => Project, (project) => project.tasks)
+  project!: Project;
 }
