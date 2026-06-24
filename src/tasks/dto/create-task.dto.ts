@@ -1,6 +1,7 @@
 import {
   IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   MinLength,
@@ -19,4 +20,8 @@ export class CreateTaskDto {
 
   @IsEnum(TaskStatusEnum, { message: 'task status is not valid' })
   status!: TaskStatusEnum;
+
+  @IsNumber()
+  @IsNotEmpty()
+  projectId!: number;
 }
