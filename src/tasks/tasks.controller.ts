@@ -46,22 +46,44 @@ export class TasksController {
     return res.status(HttpStatus.OK).json({
       statusCode: HttpStatus.OK,
       data: tasks,
-      message: 'Your Tasks Recieved Successfuly',
+      message: 'Your Tasks Recieved Successfully',
     });
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(+id);
+  async findOne(@Res() res: express.Response, @Param('id') id: string) {
+    const task = await this.tasksService.findOne(+id);
+
+    return res.status(HttpStatus.FOUND).json({
+      statusCode: HttpStatus.FOUND,
+      data: task,
+      message: 'Task Founded Successfully',
+    });
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.tasksService.update(+id, updateTaskDto);
+  async update(
+    @Res() res: express.Response,
+    @Param('id') id: string,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ) {
+    const updatedTask = await this.tasksService.update(+id, updateTaskDto);
+
+    return res.status(HttpStatus.ACCEPTED).json({
+      statusCode: HttpStatus.ACCEPTED,
+      data: updatedTask,
+      message: 'Task Updated Successfully',
+    });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tasksService.remove(+id);
+  async remove(@Res() res: express.Response, @Param('id') id: string) {
+    await this.tasksService.remove(+id);
+
+    return res.status(HttpStatus.OK).json({
+      statusCode: HttpStatus.OK,
+      data: null,
+      message: 'Task Deleted',
+    });
   }
 }
