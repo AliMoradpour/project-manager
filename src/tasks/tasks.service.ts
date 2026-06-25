@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './entities/task.entity';
 import { Project } from 'src/projects/entities/project.entity';
+import TaskStatusEnum from './enums/TaskStatusEnum';
 
 @Injectable()
 export class TasksService {
@@ -30,10 +31,17 @@ export class TasksService {
     }
   }
 
-  async findAll() {
-    const tasks = await this.taskRepository.find({ relations: ['project'] });
+  async findAll(status?: TaskStatusEnum, limit: number = 10, page: number = 1) {
+    const query = this.taskRepository
+      .createQueryBuilder('tasks')
+      .leftJoinAndSelect('tasks.project', 'project');
 
-    return tasks;
+    if (status) {
+      query.where('tasks.status = :status', { status });
+    }
+
+    query.skip((page - 1) * limit).take(limit);
+    return await query.getMany();
   }
 
   async findOne(id: number) {
