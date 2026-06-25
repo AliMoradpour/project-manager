@@ -1,20 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Res,
+  HttpStatus,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import express from 'express';
 
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService.create(createTaskDto);
+  async create(
+    @Res() res: express.Response,
+    @Body() createTaskDto: CreateTaskDto,
+  ) {
+    const createTask = await this.tasksService.create(createTaskDto);
+
+    return res.status(HttpStatus.CREATED).json({
+      statusCode: HttpStatus.CREATED,
+      data: createTask,
+      message: 'Task Created',
+    });
   }
 
   @Get()
-  findAll() {
-    return this.tasksService.findAll();
+  async findAll(@Res() res: express.Response) {
+    const tasks = await this.tasksService.findAll();
+
+    return res.status(HttpStatus.OK).json({
+      statusCode: HttpStatus.OK,
+      data: tasks,
+      message: 'Your Tasks Recieved Successfuly',
+    });
   }
 
   @Get(':id')

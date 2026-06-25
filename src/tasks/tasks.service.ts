@@ -31,7 +31,9 @@ export class TasksService {
   }
 
   async findAll() {
-    return `This action returns all tasks`;
+    const tasks = await this.taskRepository.find({ relations: ['project'] });
+
+    return tasks;
   }
 
   async findOne(id: number) {
