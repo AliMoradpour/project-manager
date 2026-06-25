@@ -1,98 +1,217 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <img src="https://img.shields.io/badge/NestJS-11-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-100%25-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeORM-1.0-FF6C37?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/PostgreSQL-8.x-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/REST_API-Documented-6c63ff?style=for-the-badge" />
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<h1 align="center">📋 Project Manager API</h1>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+<p align="center">
+  A RESTful project management back-end built with <strong>NestJS</strong> and <strong>TypeScript</strong> — featuring full CRUD for projects and tasks, relational data modelling with TypeORM and PostgreSQL, and robust validation via class-validator.
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+<p align="center">
+  <a href="https://github.com/AliMoradpour/project-manager">📂 View Repository</a> ·
+  <a href="https://alimoradpour.vercel.app">🌐 Portfolio</a>
+</p>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## ✨ Features
 
-```bash
-$ npm install
+- 🏗️ **NestJS modular architecture** — clean separation of controllers, services, modules, and DTOs
+- 🔒 **100% TypeScript** — strict typing across all layers from route handlers to database entities
+- 🗄️ **TypeORM + PostgreSQL** — relational data layer with entity definitions and repository pattern
+- ✅ **Validation** — incoming request bodies validated with `class-validator` and `class-transformer`
+- 📐 **DTO pattern** — separate Create and Update DTOs ensuring clean, predictable API contracts
+- 🧪 **Testing setup** — Jest configured for unit tests (`*.spec.ts`) and e2e tests
+- 🎨 **Code quality** — ESLint + Prettier enforced across the entire codebase
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer         | Technology                          |
+|---------------|--------------------------------------|
+| Framework     | NestJS 11                            |
+| Language      | TypeScript 5.7                       |
+| ORM           | TypeORM 1.0                          |
+| Database      | PostgreSQL (via `pg` 8.x)            |
+| Validation    | class-validator · class-transformer  |
+| Testing       | Jest · Supertest                     |
+| Linting       | ESLint (typescript-eslint) · Prettier|
+| Runtime       | Node.js                              |
+
+---
+
+## 📁 Project Structure
+
+```
+project-manager/
+├── src/
+│   ├── app.module.ts           # Root module — wires all feature modules together
+│   ├── main.ts                 # Bootstrap entry point (NestFactory, global pipes)
+│   │
+│   ├── projects/               # Projects feature module
+│   │   ├── dto/
+│   │   │   ├── create-project.dto.ts
+│   │   │   └── update-project.dto.ts
+│   │   ├── entities/
+│   │   │   └── project.entity.ts
+│   │   ├── projects.controller.ts
+│   │   ├── projects.service.ts
+│   │   └── projects.module.ts
+│   │
+│   └── tasks/                  # Tasks feature module
+│       ├── dto/
+│       │   ├── create-task.dto.ts
+│       │   └── update-task.dto.ts
+│       ├── entities/
+│       │   └── task.entity.ts
+│       ├── tasks.controller.ts
+│       ├── tasks.service.ts
+│       └── tasks.module.ts
+│
+├── test/
+│   ├── app.e2e-spec.ts         # End-to-end tests
+│   └── jest-e2e.json
+│
+├── nest-cli.json
+├── tsconfig.json
+├── tsconfig.build.json
+├── eslint.config.mjs
+├── .prettierrc
+└── package.json
 ```
 
-## Compile and run the project
+---
+
+## 🔌 API Endpoints
+
+### Projects
+
+| Method | Endpoint              | Description              |
+|--------|-----------------------|--------------------------|
+| GET    | `/projects`           | Get all projects         |
+| GET    | `/projects/:id`       | Get a project by ID      |
+| POST   | `/projects`           | Create a new project     |
+| PATCH  | `/projects/:id`       | Update a project         |
+| DELETE | `/projects/:id`       | Delete a project         |
+
+### Tasks
+
+| Method | Endpoint          | Description          |
+|--------|-------------------|----------------------|
+| GET    | `/tasks`          | Get all tasks        |
+| GET    | `/tasks/:id`      | Get a task by ID     |
+| POST   | `/tasks`          | Create a new task    |
+| PATCH  | `/tasks/:id`      | Update a task        |
+| DELETE | `/tasks/:id`      | Delete a task        |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js ≥ 18
+- PostgreSQL (local or hosted e.g. [Neon](https://neon.tech) / [Supabase](https://supabase.com))
+
+### Installation
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/AliMoradpour/project-manager.git
+cd project-manager
+npm install
 ```
 
-## Run tests
+### Environment Variables
+
+Create a `.env` file in the root:
+
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+DB_NAME=project_manager
+```
+
+### Running the App
 
 ```bash
-# unit tests
-$ npm run test
+# Development (watch mode)
+npm run start:dev
 
-# e2e tests
-$ npm run test:e2e
+# Standard start
+npm run start
 
-# test coverage
-$ npm run test:cov
+# Production
+npm run start:prod
 ```
 
-## Deployment
+The API will be available at `http://localhost:3000`.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 🧪 Testing
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Unit tests
+npm run test
+
+# Unit tests in watch mode
+npm run test:watch
+
+# Test coverage report
+npm run test:cov
+
+# End-to-end tests
+npm run test:e2e
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## 🧹 Code Quality
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+# Lint and auto-fix
+npm run lint
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# Format with Prettier
+npm run format
+```
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 🏛️ Architecture Overview
 
-## Stay in touch
+NestJS encourages a clear, opinionated structure. This project follows the standard layered pattern:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
+Request
+   ↓
+Controller        ← handles HTTP, validates route params
+   ↓
+Service           ← business logic, calls repository
+   ↓
+TypeORM Repository ← queries PostgreSQL via entity definitions
+   ↓
+PostgreSQL
+```
 
-## License
+Each feature (projects, tasks) is encapsulated in its own **NestJS module**, keeping concerns isolated and the codebase easy to scale.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+## 🤝 Author
+
+**Ali Moradpour** — [alimoradpour.vercel.app](https://alimoradpour.vercel.app) · [GitHub](https://github.com/AliMoradpour) · [LinkedIn](https://linkedin.com/in/ali-moradpour-04976316a)
+
+---
+
+<p align="center">
+  Built to demonstrate back-end API design with NestJS, TypeScript, and PostgreSQL — clean architecture, strict types, and production-ready tooling.
+</p>
